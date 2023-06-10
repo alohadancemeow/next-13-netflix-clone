@@ -1,16 +1,12 @@
-import React from "react";
-
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import getCurrentUser from "@/actions/getCurrentUser";
+import ProfileCilent from "./ProfileCilent";
 
 type Props = {};
 
 const Profile = async (props: Props) => {
-  const session = await getServerSession(authOptions);
+  const currentUser = await getCurrentUser();
 
-  console.log("session", session);
-
-  return <div>Profile</div>;
+  return <ProfileCilent currentUser={currentUser} />;
 };
 
 export default Profile;
