@@ -1,4 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
+import Navbar from "@/components/Navbar";
 
 const Home = async () => {
   const currentUser = await getCurrentUser();
@@ -6,7 +7,9 @@ const Home = async () => {
 
   return (
     <main>
-      <div>Hello netflix</div>
+      <>
+        <Navbar currentUser={currentUser} />
+      </>
     </main>
   );
 };
