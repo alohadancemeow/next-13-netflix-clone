@@ -1,4 +1,4 @@
-import getCurrentUser, { getSession } from "@/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 import getFavoriteMovies from "@/actions/getFavoriteMovies";
 import getMovieByRandom from "@/actions/getMovieByRandom";
 import getMovies from "@/actions/getMovies";
@@ -8,12 +8,9 @@ import Navbar from "@/components/Navbar";
 
 const Home = async () => {
   const currentUser = await getCurrentUser();
-  console.log("currentUser at index", currentUser);
   const movies = await getMovies();
   const randomMovie = await getMovieByRandom();
   const favorites = await getFavoriteMovies();
-
-  const session = await getSession();
 
   return (
     <>
