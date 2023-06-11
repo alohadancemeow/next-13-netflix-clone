@@ -5,12 +5,16 @@ import { useRouter } from "next/navigation";
 import { Movie } from "@prisma/client";
 
 import { BsChevronDown, BsFillPlayFill } from "react-icons/bs";
+import FavoriteButton from "./FavoriteButton";
+
+import { SafeUser } from "@/types";
 
 type Props = {
   data?: Movie | null;
+  currentUser?: SafeUser | null;
 };
 
-const MovieCard = ({ data }: Props) => {
+const MovieCard = ({ data, currentUser }: Props) => {
   const router = useRouter();
 
   const redirectToWatch = useCallback(
@@ -82,7 +86,7 @@ const MovieCard = ({ data }: Props) => {
             >
               <BsFillPlayFill className="w-4 text-black lg:w-6" />
             </div>
-            {/* <FavoriteButton movieId={data?.id} /> */}
+            <FavoriteButton movieId={data?.id} currentUser={currentUser} />
             <div
               //   onClick={() => openModal(data?.id)}
               className="flex items-center justify-center w-6 h-6 ml-auto transition border-2 border-white rounded-full cursor-pointer group/item lg:w-10 lg:h-10 hover:border-neutral-300"

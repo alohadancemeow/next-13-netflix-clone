@@ -9,6 +9,7 @@ import AccountMenu from "./AccountMenu";
 import { AiFillBell } from "react-icons/ai";
 import { BsChevronDown, BsSearch } from "react-icons/bs";
 import { SafeUser } from "@/types";
+import { useRouter } from "next/navigation";
 
 type Props = {
   currentUser?: SafeUser | null;
@@ -20,6 +21,8 @@ const Navbar = ({ currentUser }: Props) => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +85,10 @@ const Navbar = ({ currentUser }: Props) => {
             <AiFillBell className="w-6" />
           </div>
           <div
-            onClick={toggleAccountMenu}
+            onClick={() => {
+              if (!currentUser) router.push("/auth");
+              toggleAccountMenu();
+            }}
             className="relative flex flex-row items-center gap-2 cursor-pointer"
           >
             <div className="w-6 h-6 overflow-hidden rounded-md lg:w-10 lg:h-10">

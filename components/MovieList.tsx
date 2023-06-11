@@ -3,13 +3,15 @@
 import React from "react";
 import { Movie } from "@prisma/client";
 import MovieCard from "./MovieCard";
+import { SafeUser } from "@/types";
 
 type Props = {
   data?: Movie[] | null;
   title: string;
+  currentUser?: SafeUser | null;
 };
 
-const MovieList = ({ data, title }: Props) => {
+const MovieList = ({ data, title, currentUser }: Props) => {
   if (!data) return null;
 
   return (
@@ -20,7 +22,13 @@ const MovieList = ({ data, title }: Props) => {
         </p>
         <div className="grid grid-cols-4 gap-2">
           {data &&
-            data.map((movie) => <MovieCard key={movie.id} data={movie} />)}
+            data.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                data={movie}
+                currentUser={currentUser}
+              />
+            ))}
         </div>
       </div>
     </div>
