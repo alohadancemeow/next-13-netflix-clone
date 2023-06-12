@@ -8,6 +8,7 @@ import { BsChevronDown, BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
 
 import { SafeUser } from "@/types";
+import useInfModal from "@/hooks/useInfoModal";
 
 type Props = {
   data?: Movie | null;
@@ -16,6 +17,7 @@ type Props = {
 
 const MovieCard = ({ data, currentUser }: Props) => {
   const router = useRouter();
+  const { openModal } = useInfModal();
 
   const redirectToWatch = useCallback(
     () => router.push(`/watch/${data?.id}`),
@@ -88,7 +90,7 @@ const MovieCard = ({ data, currentUser }: Props) => {
             </div>
             <FavoriteButton movieId={data?.id} currentUser={currentUser} />
             <div
-              //   onClick={() => openModal(data?.id)}
+              onClick={() => openModal(data?.id!)}
               className="flex items-center justify-center w-6 h-6 ml-auto transition border-2 border-white rounded-full cursor-pointer group/item lg:w-10 lg:h-10 hover:border-neutral-300"
             >
               <BsChevronDown className="w-4 text-white group-hover/item:text-neutral-300 lg:w-6" />

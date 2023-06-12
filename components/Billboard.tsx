@@ -1,16 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { Movie } from "@prisma/client";
 
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "./PlayButton";
+import useInfModal from "@/hooks/useInfoModal";
 
 type Props = {
   randomMovie: Movie | null;
 };
 
-const Billboard = async ({ randomMovie }: Props) => {
+const Billboard = ({ randomMovie }: Props) => {
+  const { openModal } = useInfModal();
+
+  const handleOpenModal = useCallback(() => {
+    if (!randomMovie) return;
+    openModal(randomMovie?.id);
+  }, [openModal, randomMovie?.id]);
+
   return (
     <div className="relative h-[56.25vw]">
       <video
@@ -31,7 +39,7 @@ const Billboard = async ({ randomMovie }: Props) => {
         <div className="flex flex-row items-center gap-3 mt-3 md:mt-4">
           <PlayButton movieId={randomMovie?.id} />
           <button
-            // onClick={handleOpenModal}
+            onClick={handleOpenModal}
             className="flex flex-row items-center w-auto px-2 py-1 text-xs font-semibold text-white transition bg-white rounded-md bg-opacity-30 md:py-2 md:px-4 lg:text-lg hover:bg-opacity-20"
           >
             <AiOutlineInfoCircle className="w-4 mr-1 md:w-7" />
